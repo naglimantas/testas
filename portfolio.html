@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naglis — Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-accent: #22c55e;
+            --color-bg: #ffffff;
+            --color-bg-secondary: #f9fafb;
+            --color-text: #1f2937;
+            --color-text-secondary: #6b7280;
+            --color-border: #e5e7eb;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #0f172a;
+                --color-bg-secondary: #1e293b;
+                --color-text: #f1f5f9;
+                --color-text-secondary: #cbd5e1;
+                --color-border: #334155;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            header {
+                background-color: rgba(15, 23, 42, 0.95);
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            color: var(--color-accent);
+            outline: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: var(--spacing-md);
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        section {
+            padding: var(--spacing-2xl) 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        section:first-of-type {
+            border-top: none;
+        }
+
+        h1, h2, h3 {
+            color: var(--color-text);
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+            padding: var(--spacing-2xl) 0;
+            border-top: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background-color: var(--color-accent);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            border: 2px solid var(--color-accent);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            background-color: transparent;
+            color: var(--color-accent);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--color-accent), #86efac);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+                padding: var(--spacing-xl) 0;
+            }
+
+            .hero-image {
+                max-width: 300px;
+                height: 300px;
+                order: -1;
+            }
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+
+        .about-profile {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-accent), #86efac);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 500;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .about-content {
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .about-content p {
+            color: var(--color-text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-profile {
+                order: -1;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 280px;
+                height: 280px;
+            }
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+
+        .skill-badge {
+            background-color: var(--color-bg-secondary);
+            border: 2px solid var(--color-accent);
+            color: var(--color-text);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: 0.375rem;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .skill-badge:hover,
+        .skill-badge:focus {
+            background-color: var(--color-accent);
+            color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: var(--spacing-md);
+            }
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .project-card {
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 0.5rem;
+            padding: var(--spacing-lg);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease-out both;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(n+3) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:hover,
+        .project-card:focus {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+            outline: none;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text);
+        }
+
+        .project-description {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tech-tag {
+            background-color: var(--color-accent);
+            color: #ffffff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .project-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .project-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .project-link:hover,
+        .project-link:focus {
+            border-bottom-color: var(--color-accent);
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: 1.125rem;
+        }
+
+        .contact-item a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-item a:hover,
+        .contact-item a:focus {
+            border-bottom-color: var(--color-accent);
+            outline: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-bg-secondary);
+            border: 2px solid var(--color-border);
+            border-radius: 0.375rem;
+            text-decoration: none;
+            color: var(--color-accent);
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .social-link:hover,
+        .social-link:focus {
+            background-color: var(--color-accent);
+            color: #ffffff;
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+            outline: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-bg-secondary);
+            border-top: 1px solid var(--color-border);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Animation Observer */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">Naglis</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Naglis</h1>
+                <p class="hero-tagline">I like watching movies</p>
+                <p class="hero-subtitle">Full Stack Developer</p>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">Building fast, functional web experiences with modern tools and clean code.</p>
+                <a href="#contact" class="cta-button">Get in touch</a>
+            </div>
+            <div class="hero-image" aria-label="Profile illustration">Profile</div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About</h2>
+            <div class="about-container">
+                <div class="about-profile" aria-label="Profile image placeholder">Photo</div>
+                <div class="about-content">
+                    <p>I like racing games, playing violin and drinking flu medicine. Passionate about creating digital experiences that are both beautiful and functional. Always learning, always building.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <button class="skill-badge" aria-label="Python skill">Python</button>
+                <button class="skill-badge" aria-label="Full Stack skill">Full Stack</button>
+                <button class="skill-badge" aria-label="Web Development skill">Web Dev</button>
+                <button class="skill-badge" aria-label="JavaScript skill">JavaScript</button>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card" tabindex="0">
+                    <h3 class="project-title">aSteroid</h3>
+                    <p class="project-description">Asteroid shooting game with engaging gameplay mechanics and smooth controls.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Game Dev</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View →</a>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0">
+                    <h3 class="project-title">Fast Racer</h3>
+                    <p class="project-description">Racing game with realistic physics, multiple tracks, and competitive multiplayer modes.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Racing</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>✉️</span>
+                        <a href="mailto:sigma@gmail.com">sigma@gmail.com</a>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/naglimantas" class="social-link" aria-label="GitHub profile" target="_blank" rel="noopener noreferrer">GH</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Naglis. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll behavior for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Apply observer to elements with scroll-animate class
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Keyboard navigation for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                }
+            });
+        });
+
+        // Skill badge interaction
+        document.querySelectorAll('.skill-badge').forEach(badge => {
+            badge.addEventListener('click', function () {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // Active navigation link update on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = 'var(--color-accent)';
+                } else {
+                    link.style.color = 'var(--color-text)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
